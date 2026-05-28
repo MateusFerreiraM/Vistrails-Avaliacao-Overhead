@@ -1,0 +1,38 @@
+*.pyc
+*~
+.project
+.pydevproject
+*.pyo
+.DS_Store
+
+# vim
+*.swp
+
+# install
+/build/
+/dist/
+vistrails.egg-info/
+/vistrails/build/
+
+# pycharm
+.idea/
+
+# sphinx build
+doc/usersguide/_build/
+
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/Manifest.toml
+/julia/Manifest.toml
+
+# Julia packages (but keep our julia/Manifest.toml for reproducibility)
+!julia/Manifest.toml
+
+# VSCode
+.vscode/
+
+# Generated SVG outputs (keep examples)
+julia/*.svg
+!julia/examples/*.svg
