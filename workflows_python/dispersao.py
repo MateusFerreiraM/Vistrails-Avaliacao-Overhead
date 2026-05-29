@@ -1,6 +1,8 @@
 import time
 from math import pi
 import numpy.random as random
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 def run():
