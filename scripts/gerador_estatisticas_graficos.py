@@ -26,6 +26,11 @@ def main():
     csv_file = 'resultados/metricas_avaliacao_performance.csv'
     
     if not os.path.exists(csv_file):
+        print(f"Erro")
+        return
+
+    os.makedirs('resultados/graficos_oficiais', exist_ok=True)
+    if not os.path.exists(csv_file):
         print(f"Erro: Arquivo {csv_file} não encontrado. Rode run_experiments.py primeiro.")
         return
 
@@ -62,7 +67,7 @@ def main():
     plt.xticks(rotation=30, ha='right', fontsize=12)
     plt.legend(title='Ambiente')
     plt.tight_layout()
-    plt.savefig('resultados/barras_tempo_execucao_absoluto.png', dpi=300)
+    plt.savefig('resultados/graficos_oficiais/barras_tempo_execucao_absoluto.png', dpi=300)
     plt.close()
 
     # 2. Gráfico de Tempo em Escala Logarítmica
@@ -84,7 +89,7 @@ def main():
     plt.xticks(rotation=30, ha='right', fontsize=12)
     plt.legend(title='Ambiente')
     plt.tight_layout()
-    plt.savefig('resultados/barras_tempo_escala_logaritmica.png', dpi=300)
+    plt.savefig('resultados/graficos_oficiais/barras_tempo_escala_logaritmica.png', dpi=300)
     plt.close()
 
     # 3. Gráfico de Overhead Relativo %
@@ -114,7 +119,7 @@ def main():
             plt.text(index, row['Overhead_Perc'] * 1.1, f"{row['Overhead_Perc']:.0f}%", color='black', ha="center", fontsize=10)
             
         plt.tight_layout()
-        plt.savefig('resultados/barras_overhead_percentual.png', dpi=300)
+        plt.savefig('resultados/graficos_oficiais/barras_overhead_percentual.png', dpi=300)
         plt.close()
 
     # 4. Gráfico de Memória
@@ -136,7 +141,7 @@ def main():
         plt.xticks(rotation=30, ha='right', fontsize=12)
         plt.legend(title='Ambiente')
         plt.tight_layout()
-        plt.savefig('resultados/barras_consumo_memoria_ram.png', dpi=300)
+        plt.savefig('resultados/graficos_oficiais/barras_consumo_memoria_ram.png', dpi=300)
         plt.close()
 
     print("Gráficos gerados com sucesso na metodologia oficial da apresentação!")
