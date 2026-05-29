@@ -44,3 +44,6 @@ Manifest.toml.backup
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Subprodutos gerados durante os testes de visualizacao (nao sao resultados da analise)
+resultados/subprodutos_descartaveis/

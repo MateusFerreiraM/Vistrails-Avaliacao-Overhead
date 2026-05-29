@@ -1,4 +1,4 @@
-﻿# Comparação Python Puro vs VisTrails (VisTrailsJL)
+# Comparação Python Puro vs VisTrails (VisTrailsJL)
 
 Este repositório contém scripts e workflows criados para analisar e comparar o impacto do uso de sistemas de workflow científico (no caso, a reimplementação experimental em Julia, VisTrailsJL) em contrapartida à execução direta ("Python Puro"). O objetivo é avaliar os trade-offs entre a **automação e proveniência** versus o **overhead de execução e memória**.
 
@@ -10,7 +10,7 @@ Este repositório contém scripts e workflows criados para analisar e comparar o
 *   **`resultados/`**: 
     *   `metricas.csv`: O arquivo contendo os dados brutos de tempo e pico de memória.
     *   `graficos/`: Os gráficos analíticos oficiais gerados.
-    *   `imagens/`: Pasta temporária para abrigar imagens de teste geradas pelos códigos avaliados.
+    *   `subprodutos_descartaveis/`: Imagens geradas como subproduto dos testes de visualização — podem ser ignoradas.
 
 ## Experimentos Criados
 
@@ -34,11 +34,19 @@ Desenvolvemos um script orquestrador (`scripts/executar.py`) responsável por ro
 2. O Pico de Memória RAM consumida.
 
 Para executar todos os 200 cenários de teste:
-```bash
-# Certifique-se de ter os pacotes instalados
-pip install scikit-learn matplotlib pandas seaborn psutil
 
-# Dispare o orquestrador e aguarde os resultados
+### Pré-requisitos
+
+**Python:**
+```bash
+pip install scikit-learn matplotlib pandas seaborn psutil
+```
+
+**Julia:** Instale em https://julialang.org/downloads/ (versão 1.9+).  
+Na **primeira execução**, o Julia instalará automaticamente as dependências do VisTrailsJL — isso pode demorar alguns minutos, é normal.
+
+### Rodando os experimentos
+```bash
 python scripts/executar.py
 ```
 
