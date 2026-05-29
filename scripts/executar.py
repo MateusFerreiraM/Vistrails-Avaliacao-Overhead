@@ -80,7 +80,7 @@ def main():
         ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
-    num_repetitions = 1
+    num_repetitions = 10
     results = []
     
     os.makedirs('resultados', exist_ok=True)
