@@ -68,16 +68,16 @@ def run_vistrails_workflow(vt_path):
 
 def main():
     experiments = [
-        ("gcd", "scripts/gcd.py", "vistrails-python/examples/gcd.vt"),
-        ("pipeline", "scripts/pipeline.py", "vistrails-python/examples/sklearn/pipeline.vt"),
-        ("grid_search", "scripts/baselines/grid_search_baseline.py", "vistrails-python/examples/sklearn/grid_search.vt"),
-        ("primes", "scripts/baselines/primes_baseline.py", "vistrails-python/examples/primes.vt"),
-        ("lineplot_ex3", "scripts/baselines/lineplot_ex3_baseline.py", "vistrails-python/examples/matplotlib/lineplot_ex3.vt"),
-        ("scatter", "scripts/baselines/scatter_baseline.py", "vistrails-python/examples/matplotlib/scatter.vt"),
-        ("bar_ex1", "scripts/baselines/bar_ex1_baseline.py", "vistrails-python/examples/matplotlib/bar_ex1.vt"),
-        ("hist_ex1", "scripts/baselines/hist_ex1_baseline.py", "vistrails-python/examples/matplotlib/hist_ex1.vt"),
-        ("outputs", "scripts/baselines/outputs_baseline.py", "vistrails-python/examples/api/outputs.vt"),
-        ("imagemagick", "scripts/baselines/imagemagick_baseline.py", "vistrails-python/examples/api/imagemagick.vt")
+        ("gcd", "workflows_python/gcd.py", "workflows_vt/gcd.vt"),
+        ("pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
+        ("grid_search", "workflows_python/grid_search_baseline.py", "workflows_vt/grid_search.vt"),
+        ("primes", "workflows_python/primes_baseline.py", "workflows_vt/primes.vt"),
+        ("lineplot_ex3", "workflows_python/lineplot_ex3_baseline.py", "workflows_vt/lineplot_ex3.vt"),
+        ("scatter", "workflows_python/scatter_baseline.py", "workflows_vt/scatter.vt"),
+        ("bar_ex1", "workflows_python/bar_ex1_baseline.py", "workflows_vt/bar_ex1.vt"),
+        ("hist_ex1", "workflows_python/hist_ex1_baseline.py", "workflows_vt/hist_ex1.vt"),
+        ("outputs", "workflows_python/outputs_baseline.py", "workflows_vt/outputs.vt"),
+        ("imagemagick", "workflows_python/imagemagick_baseline.py", "workflows_vt/imagemagick.vt")
     ]
     
     num_repetitions = 10

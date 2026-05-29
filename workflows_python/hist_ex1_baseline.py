@@ -2,10 +2,9 @@ import time
 import matplotlib.pyplot as plt
 
 def run():
-    height = [2,5,7]
-    left = [3,5,4]
-    plt.bar(left, height)
-    plt.savefig('bar_ex1_baseline.png')
+    x = [1, 2, 3, 4, 3, 4, 2, 4, 5, 4, 5, 3, 5, 2, 4]
+    plt.hist(x)
+    plt.savefig('resultados/imagens_geradas/hist_ex1_baseline.png')
     plt.close()
 
 if __name__ == '__main__':

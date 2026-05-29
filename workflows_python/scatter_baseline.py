@@ -1,10 +1,15 @@
 import time
+from math import pi
+import numpy.random as random
 import matplotlib.pyplot as plt
 
 def run():
-    x = [1, 2, 3, 4, 3, 4, 2, 4, 5, 4, 5, 3, 5, 2, 4]
-    plt.hist(x)
-    plt.savefig('hist_ex1_baseline.png')
+    N = 30
+    X = 0.9 * random.rand(N)
+    Y = 0.9 * random.rand(N)
+    s = pi * (10 * random.rand(N))**2
+    plt.scatter(X, Y, s=s, c='r', marker='o')
+    plt.savefig('resultados/imagens_geradas/scatter_baseline.png')
     plt.close()
 
 if __name__ == '__main__':
