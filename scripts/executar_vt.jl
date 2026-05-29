@@ -1,5 +1,6 @@
 using Pkg
 Pkg.activate("vistrailsjl/julia")
+Pkg.instantiate()  # Instala dependencias automaticamente se for a primeira execucao na maquina
 
 using VisTrailsJL
 using Dates
