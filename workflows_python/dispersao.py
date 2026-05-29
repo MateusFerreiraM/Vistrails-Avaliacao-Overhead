@@ -1,11 +1,15 @@
 import time
+from math import pi
+import numpy.random as random
 import matplotlib.pyplot as plt
 
 def run():
-    height = [2,5,7]
-    left = [3,5,4]
-    plt.bar(left, height)
-    plt.savefig('resultados/imagens_geradas/grafico_barras_comparativo.png')
+    N = 30
+    X = 0.9 * random.rand(N)
+    Y = 0.9 * random.rand(N)
+    s = pi * (10 * random.rand(N))**2
+    plt.scatter(X, Y, s=s, c='r', marker='o')
+    plt.savefig('resultados/imagens/dispersao.png')
     plt.close()
 
 if __name__ == '__main__':

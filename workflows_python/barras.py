@@ -2,9 +2,10 @@ import time
 import matplotlib.pyplot as plt
 
 def run():
-    x = [1, 2, 3, 4, 3, 4, 2, 4, 5, 4, 5, 3, 5, 2, 4]
-    plt.hist(x)
-    plt.savefig('resultados/imagens_geradas/grafico_histograma_frequencia.png')
+    height = [2,5,7]
+    left = [3,5,4]
+    plt.bar(left, height)
+    plt.savefig('resultados/imagens/barras.png')
     plt.close()
 
 if __name__ == '__main__':

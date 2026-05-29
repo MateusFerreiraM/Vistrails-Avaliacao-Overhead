@@ -49,7 +49,7 @@ def run_python_baseline(script_path):
 
 def run_vistrails_workflow(vt_path):
     print(f"    Running vistrails {vt_path}")
-    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/motor_vistrails_cli.jl', vt_path])
+    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/executar_vt.jl', vt_path])
     
     if status == "SUCESSO":
         match_time = re.search(r'TEMPO_EXECUCAO_SEGUNDOS:\s*([0-9.]+)', stdout)
@@ -68,16 +68,16 @@ def run_vistrails_workflow(vt_path):
 
 def main():
     experiments = [
-        ("Matemática: MDC", "workflows_python/matematica_mdc.py", "workflows_vt/matematica_mdc.vt"),
-        ("ML: Treinamento Pipeline", "workflows_python/ml_treinamento_pipeline.py", "workflows_vt/ml_treinamento_pipeline.vt"),
-        ("ML: Otimização GridSearch", "workflows_python/ml_otimizacao_hiperparametros.py", "workflows_vt/ml_otimizacao_hiperparametros.vt"),
-        ("Matemática: Números Primos", "workflows_python/matematica_numeros_primos.py", "workflows_vt/matematica_numeros_primos.vt"),
-        ("Gráfico de Linha (Tendência)", "workflows_python/grafico_linha_tendencia.py", "workflows_vt/grafico_linha_tendencia.vt"),
-        ("Gráfico de Dispersão", "workflows_python/grafico_dispersao_dados.py", "workflows_vt/grafico_dispersao_dados.vt"),
-        ("Gráfico de Barras", "workflows_python/grafico_barras_comparativo.py", "workflows_vt/grafico_barras_comparativo.vt"),
-        ("Gráfico Histograma", "workflows_python/grafico_histograma_frequencia.py", "workflows_vt/grafico_histograma_frequencia.vt"),
-        ("API: Manipulação Saídas", "workflows_python/api_manipulacao_saidas.py", "workflows_vt/api_manipulacao_saidas.vt"),
-        ("API: Processamento Imagem", "workflows_python/api_processamento_imagem.py", "workflows_vt/api_processamento_imagem.vt")
+        ("Matemática: MDC", "workflows_python/mdc.py", "workflows_vt/mdc.vt"),
+        ("ML: Treinamento Pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
+        ("ML: Otimização GridSearch", "workflows_python/grid_search.py", "workflows_vt/grid_search.vt"),
+        ("Matemática: Números Primos", "workflows_python/primos.py", "workflows_vt/primos.vt"),
+        ("Gráfico de Linha (Tendência)", "workflows_python/linha.py", "workflows_vt/linha.vt"),
+        ("Gráfico de Dispersão", "workflows_python/dispersao.py", "workflows_vt/dispersao.vt"),
+        ("Gráfico de Barras", "workflows_python/barras.py", "workflows_vt/barras.vt"),
+        ("Gráfico Histograma", "workflows_python/histograma.py", "workflows_vt/histograma.vt"),
+        ("API: Manipulação Saídas", "workflows_python/saidas.py", "workflows_vt/saidas.vt"),
+        ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
     num_repetitions = 10
@@ -98,7 +98,7 @@ def main():
             elapsed, max_mem, status = run_vistrails_workflow(vt_path)
             results.append([name, "VisTrails", i, elapsed, max_mem, status])
 
-    csv_file = 'resultados/metricas_avaliacao_performance.csv'
+    csv_file = 'resultados/metricas.csv'
     with open(csv_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(['Workflow', 'Ambiente', 'Repeticao', 'Tempo_Segundos', 'Memoria_Pico_MB', 'Status'])

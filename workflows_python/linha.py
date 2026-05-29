@@ -5,7 +5,7 @@ def run():
     x = [1, 2, 3, 4]
     y = [20, 21, 20.5, 20.8]
     plt.plot(x, y)
-    plt.savefig('resultados/imagens_geradas/grafico_linha_tendencia.png')
+    plt.savefig('resultados/imagens/linha.png')
     plt.close()
 
 if __name__ == '__main__':
