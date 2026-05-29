@@ -80,13 +80,13 @@ def main():
         ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
-    num_repetitions = 10
+    num_repetitions = 2
     results = []
     
     os.makedirs('resultados', exist_ok=True)
     
-    for name, py_path, vt_path in experiments:
-        print(f"\n--- Testando Workflow: {name} ---")
+    for index, (name, py_path, vt_path) in enumerate(experiments, start=1):
+        print(f"\n--- Testando Workflow [{index}/{len(experiments)}]: {name} ---")
         
         for i in range(1, num_repetitions + 1):
             print(f"  [Python] Repeticao {i}/{num_repetitions}...")
