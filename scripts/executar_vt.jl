@@ -3,15 +3,17 @@ Pkg.activate("vistrailsjl/julia")
 Pkg.instantiate()  # Instala dependencias automaticamente se for a primeira execucao na maquina
 
 # Configura o PyCall para usar o Python correto desta maquina automaticamente
-# Isso resolve o erro "PyCall not configured" em maquinas novas
+# Usa um arquivo de flag para rodar Pkg.build apenas uma vez por maquina
 let
+    flag_file = joinpath(homedir(), ".vistrailsjl_pycall_configured")
     python_cmd = Sys.which("python") !== nothing ? Sys.which("python") : Sys.which("python3")
-    if python_cmd !== nothing
-        current_python = get(ENV, "PYCALL_JL_RUNTIME_PYTHON", "")
-        if current_python != python_cmd
-            ENV["PYTHON"] = python_cmd
-            Pkg.build("PyCall")
-        end
+    
+    already_configured = isfile(flag_file) && strip(read(flag_file, String)) == python_cmd
+
+    if !already_configured && python_cmd !== nothing
+        ENV["PYTHON"] = python_cmd
+        Pkg.build("PyCall")
+        write(flag_file, python_cmd)
     end
 end
 
