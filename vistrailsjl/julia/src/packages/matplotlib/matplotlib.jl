@@ -76,8 +76,8 @@ function compute(self::ModuleInstance, ::Type{MplFigureOutput})
     # Get the figure
     figure = get(self.inputs, "value", nothing)
 
-    # Ensure directory exists
-    isdir("resultados/imagens") || mkpath("resultados/imagens")
+    # TODO: Get output configuration (width, height, format, filename)
+    # For now, save to a default location
     output_file = "resultados/imagens/matplotlib_output.png"
 
     # Save the plot
