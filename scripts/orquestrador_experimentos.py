@@ -49,7 +49,7 @@ def run_python_baseline(script_path):
 
 def run_vistrails_workflow(vt_path):
     print(f"    Running vistrails {vt_path}")
-    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/run_vt.jl', vt_path])
+    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/motor_vistrails_cli.jl', vt_path])
     
     if status == "SUCESSO":
         match_time = re.search(r'TEMPO_EXECUCAO_SEGUNDOS:\s*([0-9.]+)', stdout)
@@ -70,14 +70,14 @@ def main():
     experiments = [
         ("gcd", "workflows_python/gcd.py", "workflows_vt/gcd.vt"),
         ("pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
-        ("grid_search", "workflows_python/grid_search_baseline.py", "workflows_vt/grid_search.vt"),
-        ("primes", "workflows_python/primes_baseline.py", "workflows_vt/primes.vt"),
-        ("lineplot_ex3", "workflows_python/lineplot_ex3_baseline.py", "workflows_vt/lineplot_ex3.vt"),
-        ("scatter", "workflows_python/scatter_baseline.py", "workflows_vt/scatter.vt"),
-        ("bar_ex1", "workflows_python/bar_ex1_baseline.py", "workflows_vt/bar_ex1.vt"),
-        ("hist_ex1", "workflows_python/hist_ex1_baseline.py", "workflows_vt/hist_ex1.vt"),
-        ("outputs", "workflows_python/outputs_baseline.py", "workflows_vt/outputs.vt"),
-        ("imagemagick", "workflows_python/imagemagick_baseline.py", "workflows_vt/imagemagick.vt")
+        ("grid_search", "workflows_python/grid_search.py", "workflows_vt/grid_search.vt"),
+        ("primes", "workflows_python/primes.py", "workflows_vt/primes.vt"),
+        ("lineplot_ex3", "workflows_python/lineplot_ex3.py", "workflows_vt/lineplot_ex3.vt"),
+        ("scatter", "workflows_python/scatter.py", "workflows_vt/scatter.vt"),
+        ("bar_ex1", "workflows_python/bar_ex1.py", "workflows_vt/bar_ex1.vt"),
+        ("hist_ex1", "workflows_python/hist_ex1.py", "workflows_vt/hist_ex1.vt"),
+        ("outputs", "workflows_python/outputs.py", "workflows_vt/outputs.vt"),
+        ("imagemagick", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
     num_repetitions = 10
@@ -89,16 +89,16 @@ def main():
         print(f"\n--- Testando Workflow: {name} ---")
         
         for i in range(1, num_repetitions + 1):
-            print(f"  [Python] Repetição {i}/{num_repetitions}...")
+            print(f"  [Python] Repeticao {i}/{num_repetitions}...")
             elapsed, max_mem, status = run_python_baseline(py_path)
             results.append([name, "Python", i, elapsed, max_mem, status])
             
         for i in range(1, num_repetitions + 1):
-            print(f"  [VisTrails] Repetição {i}/{num_repetitions}...")
+            print(f"  [VisTrails] Repeticao {i}/{num_repetitions}...")
             elapsed, max_mem, status = run_vistrails_workflow(vt_path)
             results.append([name, "VisTrails", i, elapsed, max_mem, status])
 
-    csv_file = 'resultados/metricas.csv'
+    csv_file = 'resultados/metricas_avaliacao_performance.csv'
     with open(csv_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(['Workflow', 'Ambiente', 'Repeticao', 'Tempo_Segundos', 'Memoria_Pico_MB', 'Status'])
