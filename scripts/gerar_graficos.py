@@ -106,9 +106,8 @@ def main():
             edgecolor=".2"
         )
         # Se os valores forem absurdamente altos (como no gcd, onde python é 0.08 e VT é 3.0),
-        # usaremos escala log para a porcentagem ou apenas plotamos normal.
-        plt.yscale('log')
-        plt.title('Overhead Relativo (%) Injetado pelo VisTrails (Escala Log)', fontsize=18, fontweight='bold', pad=20)
+        # a escala linear vai esmagar os menores, mas garante que não dê MemoryError com bounding box infinito.
+        plt.title('Overhead Relativo (%) Injetado pelo VisTrails', fontsize=18, fontweight='bold', pad=20)
         plt.ylabel('Overhead (%)', fontsize=14)
         plt.xlabel('Workflow Avaliado', fontsize=14)
         plt.xticks(rotation=30, ha='right', fontsize=12)
