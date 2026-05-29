@@ -5,7 +5,7 @@ def run():
     height = [2,5,7]
     left = [3,5,4]
     plt.bar(left, height)
-    plt.savefig('resultados/imagens_geradas/bar_ex1_baseline.png')
+    plt.savefig('resultados/imagens_geradas/grafico_barras_comparativo.png')
     plt.close()
 
 if __name__ == '__main__':
