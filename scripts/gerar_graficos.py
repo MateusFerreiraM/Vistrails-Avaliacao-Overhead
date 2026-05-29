@@ -66,8 +66,7 @@ def main():
     plt.xlabel('Workflow Avaliado', fontsize=14)
     plt.xticks(rotation=30, ha='right', fontsize=12)
     plt.legend(title='Ambiente')
-    plt.tight_layout()
-    plt.savefig('resultados/graficos/tempo_absoluto.png', dpi=300)
+    plt.savefig('resultados/graficos/tempo_absoluto.png', dpi=300, bbox_inches='tight')
     plt.close()
 
     # 2. Gráfico de Tempo em Escala Logarítmica
@@ -88,8 +87,7 @@ def main():
     plt.xlabel('Workflow Avaliado', fontsize=14)
     plt.xticks(rotation=30, ha='right', fontsize=12)
     plt.legend(title='Ambiente')
-    plt.tight_layout()
-    plt.savefig('resultados/graficos/tempo_log.png', dpi=300)
+    plt.savefig('resultados/graficos/tempo_log.png', dpi=300, bbox_inches='tight')
     plt.close()
 
     # 3. Gráfico de Overhead Relativo %
@@ -118,8 +116,7 @@ def main():
         for index, row in df_mean_time.iterrows():
             plt.text(index, row['Overhead_Perc'] * 1.1, f"{row['Overhead_Perc']:.0f}%", color='black', ha="center", fontsize=10)
             
-        plt.tight_layout()
-        plt.savefig('resultados/graficos/overhead.png', dpi=300)
+        plt.savefig('resultados/graficos/overhead.png', dpi=300, bbox_inches='tight')
         plt.close()
 
     # 4. Gráfico de Memória
@@ -140,8 +137,7 @@ def main():
         plt.xlabel('Workflow Avaliado', fontsize=14)
         plt.xticks(rotation=30, ha='right', fontsize=12)
         plt.legend(title='Ambiente')
-        plt.tight_layout()
-        plt.savefig('resultados/graficos/memoria.png', dpi=300)
+        plt.savefig('resultados/graficos/memoria.png', dpi=300, bbox_inches='tight')
         plt.close()
 
     print("Gráficos gerados com sucesso na metodologia oficial da apresentação!")
