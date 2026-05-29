@@ -13,7 +13,7 @@ def run():
     plt.ylabel('Altura / Valor', fontsize=12)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.legend()
-    plt.savefig('resultados/imagens/barras.png', bbox_inches='tight')
+    plt.savefig('resultados/subprodutos_descartaveis/barras.png', bbox_inches='tight')
     plt.close()
 
 if __name__ == '__main__':

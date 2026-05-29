@@ -13,7 +13,7 @@ def run():
     plt.ylabel('Valor da Ação / Temperatura', fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.legend()
-    plt.savefig('resultados/imagens/linha.png', bbox_inches='tight')
+    plt.savefig('resultados/subprodutos_descartaveis/linha.png', bbox_inches='tight')
     plt.close()
 
 if __name__ == '__main__':

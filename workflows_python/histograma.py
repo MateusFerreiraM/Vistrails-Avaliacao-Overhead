@@ -12,7 +12,7 @@ def run():
     plt.ylabel('Número de Ocorrências', fontsize=12)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.legend()
-    plt.savefig('resultados/imagens/histograma.png', bbox_inches='tight')
+    plt.savefig('resultados/subprodutos_descartaveis/histograma.png', bbox_inches='tight')
     plt.close()
 
 if __name__ == '__main__':

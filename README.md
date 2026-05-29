@@ -1,4 +1,4 @@
-# Comparação Python Puro vs VisTrails (VisTrailsJL)
+﻿# Comparação Python Puro vs VisTrails (VisTrailsJL)
 
 Este repositório contém scripts e workflows criados para analisar e comparar o impacto do uso de sistemas de workflow científico (no caso, a reimplementação experimental em Julia, VisTrailsJL) em contrapartida à execução direta ("Python Puro"). O objetivo é avaliar os trade-offs entre a **automação e proveniência** versus o **overhead de execução e memória**.
 

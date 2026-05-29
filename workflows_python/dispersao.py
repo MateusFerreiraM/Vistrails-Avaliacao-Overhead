@@ -17,7 +17,7 @@ def run():
     plt.ylabel('Eixo Y (Variavel Aleatória 2)', fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.legend()
-    plt.savefig('resultados/imagens/dispersao.png', bbox_inches='tight')
+    plt.savefig('resultados/subprodutos_descartaveis/dispersao.png', bbox_inches='tight')
     plt.close()
 
 if __name__ == '__main__':

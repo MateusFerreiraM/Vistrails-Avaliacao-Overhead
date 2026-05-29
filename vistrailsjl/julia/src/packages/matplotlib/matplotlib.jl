@@ -1,4 +1,4 @@
-"""
+﻿"""
 Matplotlib Package - Plotting modules using Plots.jl backend
 
 Based on Python VisTrails matplotlib package architecture.
@@ -78,7 +78,7 @@ function compute(self::ModuleInstance, ::Type{MplFigureOutput})
 
     # TODO: Get output configuration (width, height, format, filename)
     # For now, save to a default location
-    output_file = "resultados/imagens/matplotlib_output.png"
+    output_file = "resultados/subprodutos_descartaveis/matplotlib_output.png"
 
     # Save the plot
     Plots.savefig(figure, output_file)
