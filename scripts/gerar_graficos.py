@@ -31,7 +31,7 @@ def main():
 
     os.makedirs('resultados/graficos', exist_ok=True)
     if not os.path.exists(csv_file):
-        print(f"Erro: Arquivo {csv_file} não encontrado. Rode run_experiments.py primeiro.")
+        print(f"Erro: Arquivo {csv_file} não encontrado. Rode executar.py primeiro.")
         return
 
     df = pd.read_csv(csv_file)

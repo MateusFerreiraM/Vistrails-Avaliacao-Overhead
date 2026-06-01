@@ -37,20 +37,49 @@ Para executar todos os 200 cenários de teste:
 
 ### Pré-requisitos
 
-**Python:**
+1. Instale o Python 3.10+ e confirme com:
 ```bash
-pip install scikit-learn matplotlib pandas seaborn psutil
+python --version
+```
+2. Instale o Julia 1.6+ e confirme com:
+```bash
+julia --version
+```
+3. Abra um terminal na raiz do repositório.
+
+### Instalação das dependências Python
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-**Julia:** Instale em https://julialang.org/downloads/ (versão 1.9+).  
-Na **primeira execução**, o Julia instalará automaticamente as dependências do VisTrailsJL — isso pode demorar alguns minutos, é normal.
-
 ### Rodando os experimentos
+
 ```bash
 python scripts/executar.py
 ```
 
-*Os resultados brutos são exportados automaticamente para `resultados/metricas.csv`.*
+Isso gera automaticamente `resultados/metricas.csv`.
+
+### Gerando os gráficos
+
+```bash
+python scripts/gerar_graficos.py
+```
+
+Os gráficos serão salvos em `resultados/graficos/`.
+
+### Observações
+
+- Na primeira execução, o Julia pode demorar porque ele inicializa o ambiente e constrói `PyCall`.
+- O orquestrador Python já passa o mesmo `python` usado para rodar `executar.py` para a execução Julia.
+- Se aparecer erro de `PyCall`, verifique:
+  - `python --version`
+  - `julia --version`
+  - `python scripts/executar.py`
+
+> Se você quiser rodar somente os gráficos depois de coletar métricas, basta executar `python scripts/gerar_graficos.py`.
 
 ## Análise de Dados e Conclusão
 

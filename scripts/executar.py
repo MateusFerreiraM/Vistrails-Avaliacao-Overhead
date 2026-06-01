@@ -6,7 +6,7 @@ import re
 import sys
 import psutil
 
-def run_process_with_metrics(cmd):
+def run_process_with_metrics(cmd, env=None):
     start_time = time.time()
     max_mem = 0
     stdout = ""
@@ -15,7 +15,7 @@ def run_process_with_metrics(cmd):
     import tempfile
     with tempfile.TemporaryFile(mode="w+", encoding="utf-8") as temp_out:
         try:
-            p = subprocess.Popen(cmd, stdout=temp_out, stderr=subprocess.STDOUT)
+            p = subprocess.Popen(cmd, stdout=temp_out, stderr=subprocess.STDOUT, env=env)
             try:
                 pp = psutil.Process(p.pid)
                 while p.poll() is None:
@@ -44,12 +44,15 @@ def run_process_with_metrics(cmd):
 
 def run_python_baseline(script_path):
     print(f"    Running python {script_path}")
-    wall_time, max_mem, stdout, status = run_process_with_metrics(['python', script_path])
+    wall_time, max_mem, stdout, status = run_process_with_metrics([sys.executable, script_path])
     return wall_time, max_mem, status
 
 def run_vistrails_workflow(vt_path):
     print(f"    Running vistrails {vt_path}")
-    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/executar_vt.jl', vt_path])
+    env = os.environ.copy()
+    env["PYTHON"] = sys.executable
+    wall_time, max_mem, stdout, status = run_process_with_metrics(
+        ['julia', 'scripts/executar_vt.jl', vt_path], env=env)
     
     if status == "SUCESSO":
         match_time = re.search(r'TEMPO_EXECUCAO_SEGUNDOS:\s*([0-9.]+)', stdout)
@@ -83,7 +86,7 @@ def main():
     num_repetitions = 10
     results = []
     
-    os.makedirs('resultados', exist_ok=True) #
+    os.makedirs('resultados', exist_ok=True)
     
     for index, (name, py_path, vt_path) in enumerate(experiments, start=1):
         print(f"\n--- Testando Workflow [{index}/{len(experiments)}]: {name} ---")
