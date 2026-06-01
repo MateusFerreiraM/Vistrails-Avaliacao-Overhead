@@ -83,7 +83,7 @@ def main():
     num_repetitions = 10
     results = []
     
-    os.makedirs('resultados', exist_ok=True)
+    os.makedirs('resultados', exist_ok=True) #
     
     for index, (name, py_path, vt_path) in enumerate(experiments, start=1):
         print(f"\n--- Testando Workflow [{index}/{len(experiments)}]: {name} ---")
