@@ -6,21 +6,21 @@ import re
 import sys
 import psutil
 
-def run_process_with_metrics(cmd, env=None):
+def run_process_with_metrics(cmd):
     start_time = time.time()
     max_mem = 0
     stdout = ""
     status = "SUCESSO"
     
     import tempfile
-    with tempfile.TemporaryFile(mode="w+", encoding="utf-8") as temp_out:
+    with tempfile.TemporaryFile(mode="w+", encoding="utf-8", errors="replace") as temp_out:
         try:
-            p = subprocess.Popen(cmd, stdout=temp_out, stderr=subprocess.STDOUT, env=env)
+            p = subprocess.Popen(cmd, stdout=temp_out, stderr=subprocess.STDOUT)
             try:
                 pp = psutil.Process(p.pid)
                 while p.poll() is None:
                     try:
-                        mem = pp.memory_info().rss / (1024 * 1024) # MB
+                        mem = pp.memory_info().rss / (1024 * 1024)
                         if mem > max_mem:
                             max_mem = mem
                     except (psutil.NoSuchProcess, psutil.AccessDenied):
@@ -34,6 +34,9 @@ def run_process_with_metrics(cmd, env=None):
             if p.returncode != 0:
                 status = "ERRO"
                 print(f"Error executing {cmd}")
+                print(f"--- SAÍDA DO PROCESSO (returncode={p.returncode}) ---")
+                print(stdout)
+                print("--- FIM DA SAÍDA ---")
         except Exception as e:
             status = "ERRO"
             print(f"Exception executing {cmd}: {e}")
@@ -44,15 +47,12 @@ def run_process_with_metrics(cmd, env=None):
 
 def run_python_baseline(script_path):
     print(f"    Running python {script_path}")
-    wall_time, max_mem, stdout, status = run_process_with_metrics([sys.executable, script_path])
+    wall_time, max_mem, stdout, status = run_process_with_metrics(['python', script_path])
     return wall_time, max_mem, status
 
 def run_vistrails_workflow(vt_path):
     print(f"    Running vistrails {vt_path}")
-    env = os.environ.copy()
-    env["PYTHON"] = sys.executable
-    wall_time, max_mem, stdout, status = run_process_with_metrics(
-        ['julia', 'scripts/executar_vt.jl', vt_path], env=env)
+    wall_time, max_mem, stdout, status = run_process_with_metrics(['julia', 'scripts/executar_vt.jl', vt_path])
     
     if status == "SUCESSO":
         match_time = re.search(r'TEMPO_EXECUCAO_SEGUNDOS:\s*([0-9.]+)', stdout)
@@ -71,22 +71,33 @@ def run_vistrails_workflow(vt_path):
 
 def main():
     experiments = [
-        ("Matemática: MDC", "workflows_python/mdc.py", "workflows_vt/mdc.vt"),
-        ("ML: Treinamento Pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
-        ("ML: Otimização GridSearch", "workflows_python/grid_search.py", "workflows_vt/grid_search.vt"),
-        ("Matemática: Números Primos", "workflows_python/primos.py", "workflows_vt/primos.vt"),
-        ("Gráfico de Linha (Tendência)", "workflows_python/linha.py", "workflows_vt/linha.vt"),
-        ("Gráfico de Dispersão", "workflows_python/dispersao.py", "workflows_vt/dispersao.vt"),
-        ("Gráfico de Barras", "workflows_python/barras.py", "workflows_vt/barras.vt"),
-        ("Gráfico Histograma", "workflows_python/histograma.py", "workflows_vt/histograma.vt"),
-        ("API: Manipulação Saídas", "workflows_python/saidas.py", "workflows_vt/saidas.vt"),
-        ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
+    ("Matemática: MDC", "workflows_python/mdc.py", "workflows_vt/mdc.vt"),
+    ("Matemática: Fatoracao", "workflows_python/fatoracao.py", "workflows_vt/fatoracao.vt"),
+    ("Matemática: Geracao_Numeros", "workflows_python/gerador_numeros.py", "workflows_vt/gerador_numeros.vt"),
+    ("Desempenho: Grafos", "workflows_python/grafo_bfs.py", "workflows_vt/grafo_bfs.vt"),
+    ("Desempenho: Merge", "workflows_python/merge_sort_busca.py", "workflows_vt/merge_sort_busca.vt"),
+    ("Desempenho: CONTAGEM_PALAVRAS", "workflows_python/contagem_palavras.py", "workflows_vt/contagem_palavras.vt"),
+    ("Matemática: SOMA", "workflows_python/soma_lista.py", "workflows_vt/soma_lista.vt"),
+    ("Matemática: SOMA_MATRIZES", "workflows_python/soma_matrizes.py", "workflows_vt/soma_matrizes.vt"),
+    ("IO: IO_BOUND", "workflows_python/io_bound_multiplos_arquivos.py", "workflows_vt/io_bound_multiplos_arquivos.vt"),
+    ("IO: CPU_BOUND", "workflows_python/cpu_bound_fatorial_fibonacci.py", "workflows_vt/cpu_bound_fatorial_fibonacci.vt"),
+    ("IO: LOGS", "workflows_python/processamento_log.py", "workflows_vt/processamento_log.vt"),
+    ("ML: Treinamento Pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
+    ("ML: Otimização GridSearch", "workflows_python/grid_search.py", "workflows_vt/grid_search.vt"),
+    ("Matemática: Números Primos", "workflows_python/primos.py", "workflows_vt/primos.vt"),
+    ("Gráfico de Linha (Tendência)", "workflows_python/linha.py", "workflows_vt/linha.vt"),
+    ("Gráfico de Dispersão", "workflows_python/dispersao.py", "workflows_vt/dispersao.vt"),
+    ("Gráfico de Barras", "workflows_python/barras.py", "workflows_vt/barras.vt"),
+    ("Gráfico Histograma", "workflows_python/histograma.py", "workflows_vt/histograma.vt"),
+    ("API: Manipulação Saídas", "workflows_python/saidas.py", "workflows_vt/saidas.vt"),
+    ("API: Escrita", "workflows_python/escrita_csv.py", "workflows_vt/escrita_csv.vt"),
+    ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
-    num_repetitions = 10
+    num_repetitions = 1
     results = []
     
-    os.makedirs('resultados', exist_ok=True)
+    os.makedirs('resultados', exist_ok=True) #
     
     for index, (name, py_path, vt_path) in enumerate(experiments, start=1):
         print(f"\n--- Testando Workflow [{index}/{len(experiments)}]: {name} ---")

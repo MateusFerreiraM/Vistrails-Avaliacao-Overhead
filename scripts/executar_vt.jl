@@ -6,16 +6,11 @@ Pkg.instantiate()  # Instala dependencias automaticamente se for a primeira exec
 # Usa um arquivo de flag para rodar Pkg.build apenas uma vez por maquina
 let
     flag_file = joinpath(homedir(), ".vistrailsjl_pycall_configured")
-    python_cmd = haskey(ENV, "PYTHON") && !isempty(ENV["PYTHON"]) ? ENV["PYTHON"] :
-        (Sys.which("python") !== nothing ? Sys.which("python") : Sys.which("python3"))
-
-    if python_cmd === nothing
-        error("Python executable not found. Set ENV[\"PYTHON\"] to your Python executable path.")
-    end
-
+    python_cmd = Sys.which("python") !== nothing ? Sys.which("python") : Sys.which("python3")
+    
     already_configured = isfile(flag_file) && strip(read(flag_file, String)) == python_cmd
 
-    if !already_configured
+    if !already_configured && python_cmd !== nothing
         ENV["PYTHON"] = python_cmd
         Pkg.build("PyCall")
         write(flag_file, python_cmd)

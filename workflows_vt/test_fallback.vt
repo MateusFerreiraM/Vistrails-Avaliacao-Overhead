@@ -1,0 +1,22 @@
+<vistrail id="" name="Test Fallback" version="1.0.4">
+  <action id="1" prevId="0" date="2026-06-23 00:00:00" user="Antigravity" />
+  <workflow>
+    <module id="0" name="PythonSource" package="org.vistrails.vistrails.basic">
+      <function name="source">
+        <parameter val="self%20%3D%20%27Hello%20from%20fallback%21%27" />
+      </function>
+      <portSpec name="self" type="output" sortKey="0">
+        <portSpecItem module="String" />
+      </portSpec>
+    </module>
+    <module id="1" name="OutputPort" package="org.vistrails.vistrails.basic">
+      <function name="name">
+        <parameter val="msg" />
+      </function>
+    </module>
+    <connection id="0">
+      <port moduleId="0" name="self" type="source" />
+      <port moduleId="1" name="InternalPipe" type="destination" />
+    </connection>
+  </workflow>
+</vistrail>
