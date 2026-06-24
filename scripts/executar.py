@@ -79,8 +79,6 @@ def main():
     ("Desempenho: CONTAGEM_PALAVRAS", "workflows_python/contagem_palavras.py", "workflows_vt/contagem_palavras.vt"),
     ("Matemática: SOMA", "workflows_python/soma_lista.py", "workflows_vt/soma_lista.vt"),
     ("Matemática: SOMA_MATRIZES", "workflows_python/soma_matrizes.py", "workflows_vt/soma_matrizes.vt"),
-    ("IO: IO_BOUND", "workflows_python/io_bound_multiplos_arquivos.py", "workflows_vt/io_bound_multiplos_arquivos.vt"),
-    ("IO: CPU_BOUND", "workflows_python/cpu_bound_fatorial_fibonacci.py", "workflows_vt/cpu_bound_fatorial_fibonacci.vt"),
     ("IO: LOGS", "workflows_python/processamento_log.py", "workflows_vt/processamento_log.vt"),
     ("ML: Treinamento Pipeline", "workflows_python/pipeline.py", "workflows_vt/pipeline.vt"),
     ("ML: Otimização GridSearch", "workflows_python/grid_search.py", "workflows_vt/grid_search.vt"),
@@ -94,7 +92,7 @@ def main():
     ("API: Processamento Imagem", "workflows_python/imagemagick.py", "workflows_vt/imagemagick.vt")
     ]
     
-    num_repetitions = 1
+    num_repetitions = 10
     results = []
     
     os.makedirs('resultados', exist_ok=True) #
